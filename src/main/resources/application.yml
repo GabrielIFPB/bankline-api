@@ -1,15 +1,9 @@
-
-#blog:
-#    title: BankLine API
-#    banner:
-#        title: BankLine
-#        content: The BankLine API will be down tomorrow.
-
 # Spring Boot configuration
 spring:
-    config:
-        activate:
-            on-profile: test
+
+#    config:
+#        activate:
+#            on-profile: por
     # Security configuration
     security:
         user:
@@ -18,9 +12,9 @@ spring:
     # database
     datasource:
         url: jdbc:postgresql://192.168.0.106:54432/bankline_api
-#        driverClassName: org.h2.Driver
-        driver-class-name: org.postgresql.Driver
-        driverClassName: org.postgresql.Driver
+        # driverClassName: org.h2.Driver
+
+        driverClassName: org.postgresql.Driver # or driver-class-name: org.postgresql.Driver
         username: postgres
         password: postgres
     # JPA properties

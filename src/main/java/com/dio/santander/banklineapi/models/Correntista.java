@@ -18,7 +18,8 @@ public class Correntista {
     @Column(name = "nome", length = 60)
     private String nome;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_correntista")
     private List<Conta> contas;
 
     public Correntista() { }

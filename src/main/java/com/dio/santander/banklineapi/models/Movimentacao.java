@@ -2,7 +2,14 @@ package com.dio.santander.banklineapi.models;
 
 import com.dio.santander.banklineapi.emuns.MovimentacaoTipo;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -25,6 +32,21 @@ public class Movimentacao {
 
     @Enumerated(EnumType.STRING)
     private MovimentacaoTipo tipo;
+
+    @Column(name = "id_conta")
+    private long idConta;
+
+    public Movimentacao() {
+    }
+
+    public Movimentacao(long id, LocalDateTime dataHora, String descricao, double valor, MovimentacaoTipo tipo, long idConta) {
+        this.id = id;
+        this.dataHora = dataHora;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tipo = tipo;
+        this.idConta = idConta;
+    }
 
     public long getId() {
         return id;
@@ -66,6 +88,14 @@ public class Movimentacao {
         this.tipo = tipo;
     }
 
+    public long getConta() {
+        return this.idConta;
+    }
+
+    public void setConta(long conta) {
+        this.idConta = conta;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,6 +105,7 @@ public class Movimentacao {
 
         if (id != that.id) return false;
         if (Double.compare(that.valor, valor) != 0) return false;
+        if (this.idConta != that.idConta) return false;
         if (!Objects.equals(dataHora, that.dataHora)) return false;
         if (!Objects.equals(descricao, that.descricao)) return false;
         return tipo == that.tipo;
@@ -90,6 +121,7 @@ public class Movimentacao {
         temp = Double.doubleToLongBits(valor);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
+        result = (int) (31 * result + this.idConta);
         return result;
     }
 }

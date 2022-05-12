@@ -25,6 +25,11 @@ public class CorrentistaController {
         return this.serviceImplements.save(correntista);
     }
 
+    @PutMapping
+    public Correntista update(@RequestBody Correntista correntista) {
+        return this.serviceImplements.update(correntista);
+    }
+
     @DeleteMapping
     public void delete(@RequestBody Correntista correntista) {
         this.serviceImplements.delete(correntista);

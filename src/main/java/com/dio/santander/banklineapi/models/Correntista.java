@@ -3,19 +3,19 @@ package com.dio.santander.banklineapi.models;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 @Table(name = "correntista")
 public class Correntista {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private long id;
 
-    @Column(name = "cpf", length = 16)
+    @Column(name = "cpf", length = 16, nullable = false, unique = true)
     private String cpf;
 
-    @Column(name = "nome", length = 60)
+    @Column(name = "nome", length = 60, nullable = false, unique = true)
     private String nome;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -33,10 +33,6 @@ public class Correntista {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getCpf() {

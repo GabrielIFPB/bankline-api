@@ -9,24 +9,24 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "numero", nullable = false, unique = true)
     private long numero;
 
-    @Column(name = "saldo")
+    @Column(name = "saldo", nullable = false)
     private double saldo;
 
-    public Conta() { }
+    public Conta() {
+        this.setSaldo(0.0);
+    }
 
-    public Conta(long id, long numero, double saldo) {
-        this.numero = numero;
-        this.saldo = saldo;
+    public Conta(long numero, double saldo) {
+        this.setNumero(numero);
+        this.setSaldo(saldo);
     }
 
     public long getId() {
         return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public long getNumero() {

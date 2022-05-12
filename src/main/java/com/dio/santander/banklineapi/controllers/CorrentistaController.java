@@ -1,11 +1,10 @@
 package com.dio.santander.banklineapi.controllers;
 
+import com.dio.santander.banklineapi.models.Conta;
 import com.dio.santander.banklineapi.models.Correntista;
-import com.dio.santander.banklineapi.repository.CorrentistaRepository;
+import com.dio.santander.banklineapi.service.CorrentistaServiceImplements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,10 +13,20 @@ import java.util.List;
 public class CorrentistaController {
 
     @Autowired
-    private CorrentistaRepository repository;
+    private CorrentistaServiceImplements serviceImplements;
 
     @GetMapping
     public List<Correntista> findAll() {
-        return this.repository.findAll();
+        return this.serviceImplements.all();
+    }
+
+    @PostMapping
+    public Correntista save(@RequestBody Correntista correntista) {
+        return this.serviceImplements.save(correntista);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestBody Correntista correntista) {
+        this.serviceImplements.delete(correntista);
     }
 }

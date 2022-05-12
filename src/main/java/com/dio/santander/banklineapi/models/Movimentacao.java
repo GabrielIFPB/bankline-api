@@ -37,10 +37,10 @@ public class Movimentacao {
     private long idConta;
 
     public Movimentacao() {
+        this.setDataHora(LocalDateTime.now());
     }
 
-    public Movimentacao(long id, LocalDateTime dataHora, String descricao, double valor, MovimentacaoTipo tipo, long idConta) {
-        this.id = id;
+    public Movimentacao(LocalDateTime dataHora, String descricao, double valor, MovimentacaoTipo tipo, long idConta) {
         this.dataHora = dataHora;
         this.descricao = descricao;
         this.valor = valor;
@@ -50,10 +50,6 @@ public class Movimentacao {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public LocalDateTime getDataHora() {

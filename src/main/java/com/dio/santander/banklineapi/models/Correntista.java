@@ -1,6 +1,7 @@
 package com.dio.santander.banklineapi.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class Correntista {
     @Column(unique = true)
     private long id;
 
+    @NotNull
     @Column(name = "cpf", length = 16, nullable = false, unique = true)
     private String cpf;
 

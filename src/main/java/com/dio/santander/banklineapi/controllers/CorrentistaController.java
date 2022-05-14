@@ -1,11 +1,14 @@
 package com.dio.santander.banklineapi.controllers;
 
+import com.dio.santander.banklineapi.exception.CorrentistaNotFoundException;
 import com.dio.santander.banklineapi.models.Conta;
 import com.dio.santander.banklineapi.models.Correntista;
 import com.dio.santander.banklineapi.service.CorrentistaServiceImplements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,9 +23,27 @@ public class CorrentistaController {
         return this.serviceImplements.all();
     }
 
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Correntista findById(@PathVariable("id") long id) {
+        try {
+            return this.serviceImplements.findById(id);
+        } catch (CorrentistaNotFoundException e) {
+            throw new CorrentistaNotFoundException(
+                    String.format("Correntista: %d não encontrado", id)
+            );
+        }
+    }
+
     @PostMapping
-    public Correntista save(@RequestBody Correntista correntista) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Correntista save(@Valid @RequestBody Correntista correntista) {
         return this.serviceImplements.save(correntista);
+    }
+
+    @PutMapping
+    public Correntista update(@RequestBody Correntista correntista) {
+        return this.serviceImplements.update(correntista);
     }
 
     @DeleteMapping

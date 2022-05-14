@@ -3,7 +3,6 @@ package com.dio.santander.banklineapi.service;
 import com.dio.santander.banklineapi.exception.CorrentistaNotFoundException;
 import com.dio.santander.banklineapi.models.Correntista;
 import com.dio.santander.banklineapi.repository.CorrentistaRepository;
-import org.apache.tomcat.websocket.WsIOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

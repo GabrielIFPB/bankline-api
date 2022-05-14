@@ -13,4 +13,6 @@ public interface CorrentistaService {
     Correntista update(Correntista correntista);
 
     void delete(Correntista correntista);
+
+    Correntista findById(long id);
 }

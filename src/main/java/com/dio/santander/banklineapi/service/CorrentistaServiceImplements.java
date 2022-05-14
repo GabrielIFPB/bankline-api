@@ -26,18 +26,20 @@ public class CorrentistaServiceImplements implements CorrentistaService {
     }
 
     @Override
-    public Correntista update(Correntista correntista) {
+    public Correntista update(Correntista correntista) throws CorrentistaNotFoundException {
+        this.findById(correntista.getId());
         return this.repository.save(correntista);
     }
 
     @Override
-    public void delete(Correntista correntista) {
+    public void delete(Correntista correntista) throws CorrentistaNotFoundException {
+        this.findById(correntista.getId());
         this.repository.delete(correntista);
     }
 
     @Override
     public Correntista findById(long id) throws CorrentistaNotFoundException {
         Optional<Correntista> correntista = this.repository.findById(id);
-        return correntista.orElseThrow(() -> new CorrentistaNotFoundException(""));
+        return correntista.orElseThrow(() -> new CorrentistaNotFoundException("NOT_FOUND"));
     }
 }

@@ -43,11 +43,24 @@ public class CorrentistaController {
 
     @PutMapping
     public Correntista update(@RequestBody Correntista correntista) {
-        return this.serviceImplements.update(correntista);
+        try {
+            return this.serviceImplements.update(correntista);
+        } catch (CorrentistaNotFoundException e) {
+            throw new CorrentistaNotFoundException(
+                    String.format("Correntista: %s não encontrado", correntista.getNome())
+            );
+        }
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody Correntista correntista) {
-        this.serviceImplements.delete(correntista);
+        try {
+            this.serviceImplements.delete(correntista);
+        } catch (CorrentistaNotFoundException e) {
+            throw new CorrentistaNotFoundException(
+                    String.format("Correntista: %s não encontrado", correntista.getNome())
+            );
+        }
     }
 }

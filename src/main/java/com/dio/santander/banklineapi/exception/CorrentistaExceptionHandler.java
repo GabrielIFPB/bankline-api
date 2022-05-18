@@ -14,26 +14,44 @@ import java.sql.Timestamp;
 @ControllerAdvice
 public class CorrentistaExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(value = {CorrentistaBadRequest.class})
+    public ResponseEntity<Object> correntistaBadRequest(CorrentistaBadRequest e) {
+
+        CorrentistaHandlerException correntistaHandlerException = this.constructHandlerException(
+                e
+        );
+        return new ResponseEntity<>(
+                correntistaHandlerException,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
     @ExceptionHandler(value = {CorrentistaNotFoundException.class})
     public ResponseEntity<Object> correntistaNotFoundException(CorrentistaNotFoundException e) {
 
-        HandlerExceptionBuilder handlerExceptionBuilder = new HandlerExceptionBuilder();
-
         CorrentistaHandlerException correntistaHandlerException = this.constructHandlerException(
-                handlerExceptionBuilder, e
+                e
         );
-        ResponseEntity<Object> responseEntity = new ResponseEntity<>(
+        return new ResponseEntity<>(
                 correntistaHandlerException,
                 HttpStatus.NOT_FOUND
         );
-        return responseEntity;
     }
 
-    private CorrentistaHandlerException constructHandlerException(HandlerExceptionBuilder builder, CorrentistaNotFoundException e) {
-        builder.setMessage(e.getMessage());
-        builder.setHttpStatus(HttpStatus.NOT_FOUND);
-        builder.setStatus(HttpStatus.NOT_FOUND.value());
-        builder.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        return builder.getResult();
+    private CorrentistaHandlerException constructHandlerException(RuntimeException e) {
+        // the two ways to use patterns builder
+//        HandlerExceptionBuilder builder = new HandlerExceptionBuilder();
+//        builder.setMessage(e.getMessage());
+//        builder.setHttpStatus(HttpStatus.NOT_FOUND);
+//        builder.setStatus(HttpStatus.NOT_FOUND.value());
+//        builder.setTimestamp(new Timestamp(System.currentTimeMillis()));
+//       return builder.getResult();
+
+        return HandlerExceptionBuilder.builder()
+                .setMessage(e.getMessage())
+                .setHttpStatus(HttpStatus.NOT_FOUND)
+                .setStatus(HttpStatus.NOT_FOUND.value())
+                .setTimestamp(new Timestamp(System.currentTimeMillis()))
+                .getResult();
     }
 }

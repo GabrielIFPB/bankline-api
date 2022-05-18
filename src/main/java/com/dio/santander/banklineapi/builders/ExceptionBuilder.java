@@ -1,16 +1,18 @@
 package com.dio.santander.banklineapi.builders;
 
+import com.dio.santander.banklineapi.models.CorrentistaHandlerException;
 import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 
 public interface ExceptionBuilder {
-    void setMessage(String message);
+    ExceptionBuilder setMessage(String message);
 
-    void setHttpStatus(HttpStatus httpStatus);
+    ExceptionBuilder setHttpStatus(HttpStatus httpStatus);
 
-    void setStatus(int status);
+    ExceptionBuilder setStatus(int status);
 
-    void setTimestamp(Timestamp timestamp);
+    ExceptionBuilder setTimestamp(Timestamp timestamp);
 
+    <T> T getResult();
 }

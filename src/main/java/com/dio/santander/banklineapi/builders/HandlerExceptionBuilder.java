@@ -13,23 +13,31 @@ public class HandlerExceptionBuilder implements ExceptionBuilder {
     private Timestamp timestamp;
 
     @Override
-    public void setMessage(String message) {
+    public ExceptionBuilder setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     @Override
-    public void setHttpStatus(HttpStatus httpStatus) {
+    public ExceptionBuilder setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
+        return this;
     }
 
     @Override
-    public void setStatus(int status) {
+    public ExceptionBuilder setStatus(int status) {
         this.status = status;
+        return this;
     }
 
     @Override
-    public void setTimestamp(Timestamp timestamp) {
+    public ExceptionBuilder setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+        return this;
+    }
+
+    public static ExceptionBuilder builder() {
+        return new HandlerExceptionBuilder();
     }
 
     public CorrentistaHandlerException getResult() {
